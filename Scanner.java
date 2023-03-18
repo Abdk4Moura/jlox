@@ -8,7 +8,7 @@ package com.craftinginterpreters.lox;
 import java.util.ArrayList;
 import java.util.Hashmap;
 import java.util.List;
-import java.uitl.Map;
+import java.utl.Map;
 
 import static com.craftinginterpreters.lox.TokenType.*;
 
@@ -122,6 +122,7 @@ class Scanner {
                 // A comment goes until the end of the line.
                 while (peek() != '\n' && !isAtEnd())
                     advance();
+                // A multiLineComment starts with `/*` and ends with `*/`
             } else if (peek() == '*') {
                 multiLineComment();
             } else {
@@ -157,16 +158,16 @@ class Scanner {
 
     private void multiLineComment() {
         char p;
-        while ((p = peek()) != '*' || !isAtEnd()) {
+        while (!isAtEnd()) {
+            p = peek();
             if (p == '\n')
                 line++;
-            if (match('/'))
-                return;
+            if (p == '*')
+                if (match('/'))
+                    return;
             advance();
         }
-        if (isAtEnd())
-            return;
-        multiLineComment();
+        return;
     }
 
     private void identifier() {
