@@ -1,0 +1,40 @@
+#+title: Grammar
+
+breakfast -> protein "with" breakfast "on the side" ;
+breakfast -> protein ;
+breakfast -> break ;
+
+protein -> crispiness "crispy" "bacon" ;
+protein -> "sausage" ;
+protein -> cooked "eggs" ;
+
+crispiness -> "really" ;
+crispiness -> "really" crispiness;
+
+cooked -> "scrambled" ;
+cooked -> "poached" ;
+cooked -> "fried" ;
+
+bread -> "toast" ;
+bread -> "biscuits" ;
+bread -> "English muffin" ;
+
+## We can use this grammar to generate random breakfasts.
+
+#- We can enhance our notation
+bread -> "toast" | "biscuits" | "English muffin"
+protein -> ( "scrambled" | "poached" | "fried" ) "eggs" ;
+crispiness -> "really" "really"* ;
+
+#-- Enhance `crispiness`
+crispiness -> "really"+ ;
+
+#-- A postfix `?` is for an optional production
+breakfast -> protein ( "with" breakfast "on the side" ) ?
+            | bread;
+
+protein -> "really"+ "crispy" "bacon"
+            | "sausage"
+            | ( "scrambled" | "poached" | "fried" ) "eggs" ;
+
+bread   -> "toast" | "biscuits" | "English muffin" ;

@@ -1,0 +1,30 @@
+#+title: Roadmap
+
+#-Scanner
+
+
+#-Parser
+Parser needs more than just regular language
+
+#- ...
+
+#- kind of types for the parser
+1) literal
+2) unary expression
+3) Binary experession: `infix`, `logic` operators
+4) parentheses: `()`
+
+1 - ( 2 * 3 ) < 4 == false
+
+#- Let's express it using the handy-dandy notation:
+expression -> literal
+            | unary      |
+            | binary     |
+            | grouping ; |
+
+literal    -> NUMBER | STRING | "true" | "false" | "nil" ;
+grouping   -> "(" expression ")" ;
+unary      -> ( "-" | ":" ) expression ;
+binary     -> expression operator expression;
+operator   -> "==" | "!=" | "<" | "<=" | ">" | ">="
+            | "+" | "-" | "*" | "/"
