@@ -7,8 +7,10 @@ package tool;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class GenerateAst {
     public static void main(String[] args) throws IOException {
@@ -18,9 +20,9 @@ public class GenerateAst {
         }
         String outputDir = args[0];
         String outputFileName = args[1];
-        String invalidChars = "*/ !@#%^&*()+\\|{}<>";
+        Pattern invalidCharsPattern = Pattern.compile("[*/ !@#%^&()+|{}<>]");
 
-        boolean matches = invalidChars.matches("[" + invalidChars + "]");
+        boolean matches = invalidChars.matcher(invalidCharsPattern).find();
         if (matches) {
             System.err.println("Error: File name contains invalid character");
             System.exit(60);
@@ -38,7 +40,7 @@ public class GenerateAst {
 
     private static void defineAst(String outputDir, String baseName, List<String> types) throws IOException {
         String path = outputDir + "/" + baseName + ".java";
-        PrintWriter writer = new PrintWriter(path, "UTF-8");
+        PrintWriter writer = new PrintWriter(path, StandardCharsets.UTF_8);
 
         writer.println("package com.craftinginterpreters.lox;");
         writer.println();
