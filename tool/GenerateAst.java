@@ -22,7 +22,7 @@ public class GenerateAst {
         String outputFileName = args[1];
         Pattern invalidCharsPattern = Pattern.compile("[*/ !@#%^&()+|{}<>]");
 
-        boolean matches = invalidChars.matcher(invalidCharsPattern).find();
+        boolean matches = invalidCharsPattern.matcher(outputFileName).find();
         if (matches) {
             System.err.println("Error: File name contains invalid character");
             System.exit(60);
